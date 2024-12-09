@@ -214,11 +214,11 @@ resource "aws_instance" "app3" {
     connection {
       host        = self.public_ip
       type        = "ssh"
-      user        = "centos"
+      user        = "ec2-user"
       private_key = file(var.pvt_key)
     }
   }
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u centos -i ansible/aws_ec2.yml --private-key ${var.pvt_key} ansible/site.yml >> outputlog.txt"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user -i ansible/aws_ec2.yml --private-key ${var.pvt_key} ansible/site.yml >> outputlog.txt"
   }
 }
